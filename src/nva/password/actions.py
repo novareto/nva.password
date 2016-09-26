@@ -31,8 +31,8 @@ class AskPasswordAction(forms.Action):
             form.flash(_(u"Sorry this account is not active"))
             return forms.FAILURE
 
-
-class AskPasswordAction(forms.Action):
+                          
+class ResetPasswordAction(forms.Action):
 
     def get_user(self, form, data):
         raise NotImplementedError('To be implemented in subclasses.')
@@ -47,13 +47,17 @@ class AskPasswordAction(forms.Action):
 
         if user is None:
             form.flash(_(u"Sorry, this account does not exist"))
-            form.redirect(form.application_url(name='login'))
+            form.redirect(form.application_url())
         elif hasattr(user, 'is_active') and user.is_active():
             pwd_manager = IPasswordManager(user)
-            pwd_manager.request_password_reset()
-            website_message(_(u"A mail was sent to reset your password, " +
-                              u"please check your inbox"))
-            return forms.SUCCESS
+            result = pwd_manager.reset_password(
+                data['newpass'], data['challenge'])
+            if result is True:
+                form.flash(_(u"Password changes with success."))
+                return forms.SUCCESS
+            else:
+                form.flash(_(u"Sorry this account is not active"))
+                return forms.FAILURE
         else:
-            website_message(_(u"Sorry this account is not active"))
-            raise exceptions.HTTPFound(form.request.application_url + '/login')
+            form.flash(_(u"Sorry this account is not active"))
+            return forms.FAILURE
