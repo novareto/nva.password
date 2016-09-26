@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import zeam.form.base as forms
+from . import MF as _
 
 
 class AskPasswordAction(forms.Action):
@@ -19,12 +20,12 @@ class AskPasswordAction(forms.Action):
         if user is None:
             form.flash(_(u"Sorry, this account does not exist"))
             form.redirect(form.application_url(name='login'))
-        elif user.state != DISABLED:
+        elif hasattr(user, 'is_active') and user.is_active():
             pwd_manager = IPasswordManager(user)
             pwd_manager.request_password_reset()
             website_message(_(u"A mail was sent to reset your password, " +
                               u"please check your inbox"))
             return forms.SUCCESS
         else:
-            website_message(_(u"Sorry this account has been disabled"))
+            website_message(_(u"Sorry this account is not active"))
             raise exceptions.HTTPFound(form.request.application_url + '/login')
