@@ -3,7 +3,7 @@
 import hashlib
 import hmac
 import grokcore.component as grok
-from zope.interface import Interface, implementer
+from zope.interface import Interface, implementer, provider
 from datetime import date, timedelta
 
 
@@ -22,6 +22,7 @@ class ITokenFactory(Interface):
 
 
 @implementer(ITokenFactory)
+@provider(ITokenFactory)
 class ShaTokenFactory(grok.GlobalUtility):
     """A sha based token factory
 

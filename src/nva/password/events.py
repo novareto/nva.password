@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from zope.interface import implementer, Attribute
-from zope.interface.interfaces import IObjectEvent, ObjectEvent
+from zope.component.interfaces import IObjectEvent, ObjectEvent
 
 
 class IPasswordRequestedEvent(IObjectEvent):
