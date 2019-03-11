@@ -3,8 +3,6 @@ import os
 
 version = '1.0'
 
-tests_require = []
-
 setup(name='nva.password',
       version=version,
       description="",
@@ -23,11 +21,14 @@ setup(name='nva.password',
       package_dir={'': 'src'},
       packages=find_packages('src'),
       namespace_packages=['nva'],
-      extras_require = {'test': tests_require},
+      extras_require = {
+          'test': [],
+          'uvclight': ['dolmen.forms.base'],
+          'uvcsite': ['zeam.form.base'],
+      },
       install_requires=[
           'setuptools',
           'zope.component',
-          'dolmen.forms.base',
       ],
       entry_points="""
       # -*- Entry points: -*-
