@@ -1,6 +1,10 @@
 # -*- coding: utf-8 -*-
 
-import zeam.form.base as forms
+try:
+    import dolmen.forms.base as forms
+except ImportError:
+    import zeam.form.base as forms
+
 from .interfaces import IPasswordManager
 from . import MF as _
 
