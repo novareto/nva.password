@@ -27,7 +27,7 @@ setup(name='nva.password',
       install_requires=[
           'setuptools',
           'zope.component',
-          'zeam.form.base',
+          'dolmen.forms.base',
       ],
       entry_points="""
       # -*- Entry points: -*-

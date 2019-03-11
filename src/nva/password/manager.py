@@ -34,6 +34,7 @@ class PasswordManagerAdapter(grok.Adapter):
             tokenizer = getUtility(ITokenFactory, name=self.tokenizer)
             challenge = tokenizer.create(user.username)
             notify(PasswordRequestedEvent(user, challenge))
+            return challenge
         except KeyError:
             pass  # silently pass for security sakes
 

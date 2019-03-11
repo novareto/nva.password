@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import zeam.form.base as forms
+import dolmen.forms.base as forms
 from .interfaces import IPasswordManager
 from . import MF as _
 
