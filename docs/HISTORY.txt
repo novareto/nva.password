@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0dev (unreleased)
--------------------
+1.0 (2020-08-20)
+----------------
 
 - Initial release
