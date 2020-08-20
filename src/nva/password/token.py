@@ -34,7 +34,7 @@ class ShaTokenFactory(grok.GlobalUtility):
     """
     grok.name("sha_tokenizer")
 
-    secret = "The raven himself is hoarse"
+    secret = b"The raven himself is hoarse"
     validity = 3  # validity in days
 
     @property
@@ -44,17 +44,17 @@ class ShaTokenFactory(grok.GlobalUtility):
 
     def create(self, word):
         token = hmac.new(key=self.secret, digestmod=hashlib.sha256)
-        token.update(word)
-        token.update(str(self.today))
+        token.update(word.encode('utf-8'))
+        token.update(str(self.today).encode('utf-8'))
         return token.hexdigest()
 
     def verify(self, word, challenger):
         today = self.today
         basetoken = hmac.new(key=self.secret, digestmod=hashlib.sha256)
-        basetoken.update(word)
+        basetoken.update(word.encode('utf-8'))
         for n in range(self.validity):
             token = basetoken.copy()
-            token.update(str(today - timedelta(n)))
+            token.update(str(today - timedelta(n)).encode('utf-8'))
             if token.hexdigest() == challenger:
                 return True
         return False
